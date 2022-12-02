@@ -3,10 +3,11 @@ version: "3.7"
 services:
     # image project
     app:
+        container_name: uex9maps-laravel-9
         build:
             context: .
             dockerfile: Dockerfile
-        # image: especializati/laravel9-app
+        # image: uex9maps/laravel9-app
         restart: unless-stopped
         working_dir: /var/www/
         volumes:
@@ -18,18 +19,20 @@ services:
 
     # nginx
     nginx:
+        container_name: uex9maps-nginx
         image: nginx:alpine
         restart: unless-stopped
-        ports: 
+        ports:
             - "8989:80"
-        volumes: 
+        volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
-        networks: 
+        networks:
             - laravel-9
 
     # db mysql
     mysql:
+        container_name: uex9maps-mysql
         image: mysql:5.7.22
         restart: unless-stopped
         environment:
@@ -46,6 +49,7 @@ services:
 
     # queue
     queue:
+        container_name: uex9maps-queue
         image: especializati/laravel9-app
         restart: unless-stopped
         command: "php artisan queue:work"
@@ -59,6 +63,7 @@ services:
 
     # redis
     redis:
+        container_name: uex9maps-redis
         image: redis:latest
         networks:
             - laravel-9
