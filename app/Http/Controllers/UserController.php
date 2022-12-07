@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.login');
+        return view('users.login');
     }
 
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.register');
+        return view('users.register');
     }
 
     /**
@@ -41,10 +42,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateUserFormRequest $request)
     {
         if (!$request->password === $request->repeat_password) {
-            return redirect()->route('user.index');
+            return redirect()->route('users.index');
         }
 
         $data = $request->all();
@@ -62,7 +63,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->model->find($id);
+        if (!$user)
+        {
+            return redirect()->route('dashboard.index');
+        }
+
+        return view('users.map', compact('user'));
     }
 
     /**
