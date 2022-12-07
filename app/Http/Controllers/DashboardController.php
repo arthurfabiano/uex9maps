@@ -15,7 +15,6 @@ class DashboardController extends Controller
     }
 
     public function index() {
-        $users = $this->model->All();
-        return view('dashboard.index', compact('users'));
+        return view('dashboard.index');
     }
 }
