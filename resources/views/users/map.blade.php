@@ -30,15 +30,13 @@
                         ADDRESS DATA
                     </a>
                     <br/>
-                    <b>CEP</b> {{ $user->address->code }}
+                    <b>CEP</b> {{ $user->address->cep }}
                     <hr>
-                    <b>Street</b> {{ $user->address->street }}, {{ $user->address->number }}
+                    <b>Endereço</b> {{ $user->address->endereco }}, {{ $user->address->number ?? 0 }}
                     <hr>
-                    <b>Bairro</b> {{ $user->address->city }}
+                    <b>Bairro</b> {{ $user->address->bairro }}
                     <hr>
-                    <b>State</b> {{ $user->address->state }} / {{ $user->address->uf }}
-                    <hr>
-                    <b>District</b> {{ $user->address->district }}
+                    <b>Cidade/Estado</b> {{ $user->address->cidade }} / {{ $user->address->uf }}
                 </div>
             </div>
             <div class="col-lg-9">

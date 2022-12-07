@@ -50,6 +50,9 @@ class UserController extends Controller
 
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
+
+        $idAddress = $this->model->address()->create($request->all());
+        $data['id_address'] = $idAddress['id'];
         $this->model->create($data);
 
         return redirect()->route('dashboard.index');

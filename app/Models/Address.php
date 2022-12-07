@@ -17,12 +17,13 @@ class Address extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'code',
-        'street',
+        'cep',
+        'endereco',
         'number',
+        'complemento',
+        'bairro',
+        'cidade',
         'uf',
-        'city',
-        'district',
-        'state'
+        'ddd'
     ];
 }

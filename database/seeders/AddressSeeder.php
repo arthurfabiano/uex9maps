@@ -16,13 +16,14 @@ class AddressSeeder extends Seeder
     public function run()
     {
         Address::create([
-            'code' => '80250104',
-            'street' => 'Rua Pasteur',
-            'number' => 463,
+            'cep' => '80250104',
+            'endereco' => 'Rua Pasteur',
+            'number' => '463',
+            'complemento' => 'apt',
+            'bairro' => 'Batel',
+            'cidade' => 'Paraná',
             'uf' => 'PR',
-            'city' => 'Paraná',
-            'district' => 'Batel',
-            'state' => 'Curitiba',
+            'ddd' => '41',
         ]);
     }
 }

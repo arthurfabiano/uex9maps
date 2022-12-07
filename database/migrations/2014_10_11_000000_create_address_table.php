@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('street');
-            $table->string('number');
+            $table->string('cep')->unique();
+            $table->string('endereco');
+            $table->string('number')->nullable();
+            $table->string('complemento')->nullable();
+            $table->string('bairro');
+            $table->string('cidade');
             $table->string('uf');
-            $table->string('city');
-            $table->string('district');
-            $table->string('state');
+            $table->string('ddd');
             $table->timestamps();
         });
     }

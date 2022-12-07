@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_address')->default(1);
+            $table->unsignedBigInteger('id_address');
             $table->string('name');
             $table->string('cpf')->unique();
             $table->string('phone');

@@ -74,7 +74,7 @@
                                     </svg>
                                 </span>
                                 <input class="form-control" type="text" name="name" placeholder="Your Name" required>
-                                    @error('name'){{ $message }}@enderror
+                                @error('name'){{ $message }}@enderror
                             </div>
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
@@ -93,7 +93,7 @@
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-closed"></use>
                                 </svg></span>
-                                <input class="form-control cep" id="cep" type="text" name="cep" placeholder="Your CEP" required>
+                                <input class="form-control mycep" id="mycep" type="text" name="mycep" placeholder="Your CEP" required>
                             </div>
 
                             <div class="input-group mb-3"><span class="input-group-text">
@@ -115,11 +115,11 @@
                                 <input class="form-control" type="password" name="repeat_password" placeholder="Repeat password" required>
                             </div>
 
-                            <input type="text" name="code" id="code">
-                            <input type="text" name="street" id="street">
-                            <input type="text" name="locality" id="locality">
-                            <input type="text" name="complement" id="complement">
-                            <input type="text" name="district" id="district">
+                            <input type="text" name="cep" id="cep">
+                            <input type="text" name="endereco" id="endereco">
+                            <input type="text" name="complemento" id="complemento">
+                            <input type="text" name="bairro" id="bairro">
+                            <input type="text" name="cidade" id="cidade">
                             <input type="text" name="uf" id="uf">
                             <input type="text" name="ddd" id="ddd">
 
@@ -139,9 +139,9 @@
 <script>
     $('.cpf').mask('000.000.000-00');
     $('.phone').mask('(00) 0000-0000');
-    $('.cep').mask('00000.000');
+    $('.mycep').mask('00000.000');
 
-    $(document).on('blur', '#cep', function() {
+    $(document).on('blur', '#mycep', function() {
         const cep = $(this).val();
         const cepClear = cep.replace(/[^\d]+/g,'');
         $.ajax({
@@ -150,11 +150,11 @@
             datatype: 'json',
             success: function(data) {
                 if(data.erro) alert('Address not found!');
-                $('#code').val(data.cep);
-                $('#street').val(data.logradouro);
-                $('#locality').val(data.localidade);
-                $('#complement').val(data.complemento);
-                $('#district').val(data.bairro);
+                $('#cep').val(data.cep);
+                $('#endereco').val(data.logradouro);
+                $('#complemento').val(data.complemento);
+                $('#bairro').val(data.bairro);
+                $('#cidade').val(data.localidade);
                 $('#uf').val(data.uf);
                 $('#ddd').val(data.ddd);
             },
