@@ -96,7 +96,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserAddressFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if (!$user = $this->model->find($id))
         {
