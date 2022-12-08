@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $users = User::All();
+        $users = User::orderBy("name", "asc")->get();
         view()->share('myUsers', $users);
     }
 }

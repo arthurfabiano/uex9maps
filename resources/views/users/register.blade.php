@@ -67,61 +67,63 @@
                         <div class="card-body p-4">
                             <h1>Register</h1>
                             <p class="text-medium-emphasis">Create your account</p>
+
+                            @error('name')<label class="form-label" style="color:#e55353;">{{ $message }}</label>@enderror
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <svg class="icon">
                                       <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
                                     </svg>
                                 </span>
-                                <input class="form-control" type="text" name="name" placeholder="Your Name" required>
-                                @error('name'){{ $message }}@enderror
+                                <input class="form-control" type="text" name="name" placeholder="Your Name" required value="{{ old('name') }}">
                             </div>
+
+                            @error('cpf')<label class="form-label" style="color:#e55353;">{{ $message }}</label>@enderror
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-list-numbered-rtl"></use>
                                 </svg></span>
-                                <input class="form-control cpf" id="cpf" type="text" name="cpf" placeholder="cpf" required>
+                                <input class="form-control cpf" id="cpf" type="text" name="cpf" placeholder="cpf" required value="{{ old('cpf') }}">
                             </div>
+
+                            @error('phone')<label class="form-label" style="color:#e55353;">{{ $message }}</label>@enderror
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-phone"></use>
                                 </svg></span>
-                                <input class="form-control phone" id="phone" type="text" name="phone" placeholder="Your number Phone" required>
+                                <input class="form-control phone" id="phone" type="text" name="phone" placeholder="Your number Phone" required value="{{ old('phone') }}">
                             </div>
 
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-closed"></use>
                                 </svg></span>
-                                <input class="form-control mycep" id="mycep" type="text" name="mycep" placeholder="Your CEP" required>
+                                <input class="form-control mycep" id="mycep" type="text" name="mycep" placeholder="Your CEP" required value="{{ old('mycep') }}">
                             </div>
 
+                            @error('email')<label class="form-label" style="color:#e55353;">{{ $message }}</label>@enderror
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
                                 </svg></span>
-                                <input class="form-control" type="text" name="email" placeholder="Email" required>
+                                <input class="form-control" type="text" name="email" placeholder="Email" required value="{{ old('email') }}">
                             </div>
+
+                            @error('password')<label class="form-label" style="color:#e55353;">{{ $message }}</label>@enderror
                             <div class="input-group mb-3"><span class="input-group-text">
                                 <svg class="icon">
                                   <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
                                 </svg></span>
                                 <input class="form-control" type="password" name="password" placeholder="Password" required>
                             </div>
-                            <div class="input-group mb-4"><span class="input-group-text">
-                                <svg class="icon">
-                                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                                </svg></span>
-                                <input class="form-control" type="password" name="repeat_password" placeholder="Repeat password" required>
-                            </div>
 
-                            <input type="text" name="cep" id="cep">
-                            <input type="text" name="endereco" id="endereco">
-                            <input type="text" name="complemento" id="complemento">
-                            <input type="text" name="bairro" id="bairro">
-                            <input type="text" name="cidade" id="cidade">
-                            <input type="text" name="uf" id="uf">
-                            <input type="text" name="ddd" id="ddd">
+                            <input type="hidden" name="cep" id="cep" value="{{ old('cep') }}">
+                            <input type="hidden" name="endereco" id="endereco" value="{{ old('endereco') }}">
+                            <input type="hidden" name="complemento" id="complemento" value="{{ old('complemento') }}">
+                            <input type="hidden" name="bairro" id="bairro" value="{{ old('bairro') }}">
+                            <input type="hidden" name="cidade" id="cidade" value="{{ old('cidade') }}">
+                            <input type="hidden" name="uf" id="uf" value="{{ old('uf') }}">
+                            <input type="hidden" name="ddd" id="ddd" value="{{ old('ddd') }}">
 
                             <button class="btn btn-block btn-success" type="submit">Create Account</button>
                         </div>

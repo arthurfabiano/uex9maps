@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateUserFormRequest;
+use App\Http\Requests\UpdateUserAddressFormRequest;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -44,10 +47,6 @@ class UserController extends Controller
      */
     public function store(StoreUpdateUserFormRequest $request)
     {
-        if (!$request->password === $request->repeat_password) {
-            return redirect()->route('users.index');
-        }
-
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
@@ -55,7 +54,10 @@ class UserController extends Controller
         $data['id_address'] = $idAddress['id'];
         $this->model->create($data);
 
-        return redirect()->route('dashboard.index');
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+
+        $request->session()->regenerate();
+        return redirect()->intended(route('dashboard.index'));
     }
 
     /**
@@ -67,6 +69,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->model->find($id);
+
         if (!$user)
         {
             return redirect()->route('dashboard.index');
@@ -93,9 +96,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserAddressFormRequest $request, $id)
     {
-        //
+        if (!$user = $this->model->find($id))
+        {
+            return redirect()->route('user.show', $id);
+        }
+
+        $user                       = $this->model->find($id);
+        $arrUser                    = array();
+        $arrUser['name']            = $request->name;
+        $arrUser['email']           = $request->email;
+        $arrUser['phone']           = $request->phone;
+        $arrUser['cpf']             = $request->cpf;
+        $user->update($arrUser);
+
+        $userAddress                = Address::find($request->id_address);
+        $arrAddress                 = array();
+        $arrAddress['endereco']     = $request->endereco;
+        $arrAddress['number']       = $request->number;
+        $arrAddress['complemento']  = $request->complemento;
+        $arrAddress['bairro']       = $request->bairro;
+        $arrAddress['cidade']       = $request->cidade;
+        $arrAddress['estado']       = $request->estado;
+        $arrAddress['id']           = $request->id_address;
+        $arrAddress['cep']          = $request->cep;
+        $userAddress->update($arrAddress);
+
+        return redirect()->route('user.show', $id);
     }
 
     /**
@@ -111,9 +139,36 @@ class UserController extends Controller
 
     public function login(Request $request) {
         if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('user.index');
+            return redirect()->back()->with('error', 'Usuário ou senha invalidos!');
         }
 
-        return redirect()->route('dashboard.index');
+        $request->session()->regenerate();
+        return redirect()->intended(route('dashboard.index'));
+    }
+
+    public function listUsers() {
+        return response()->json(
+            User::with('address')->get(),
+            200
+        );
+    }
+
+    public function listUsersMap() {
+        $user = User::with('address')->get();
+        dd($user[0]['address']);
+
+        return view('user.index');
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('user.index');
+    }
+
+    public function forgotpassword() {
+        return view('users.forgotpassword');
     }
 }

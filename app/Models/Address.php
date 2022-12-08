@@ -26,4 +26,9 @@ class Address extends Model
         'uf',
         'ddd'
     ];
+
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
+    }
 }

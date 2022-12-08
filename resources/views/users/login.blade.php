@@ -68,11 +68,16 @@
                             <div class="card-body">
                                 <h1>Login</h1>
                                 <p class="text-medium-emphasis">Sign In to your account</p>
+                                @if($mensagem = Session::get('error'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ $mensagem }}
+                                    </div>
+                                @endif
                                 <div class="input-group mb-3"><span class="input-group-text">
                                       <svg class="icon">
                                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
                                       </svg></span>
-                                    <input class="form-control" type="email" name="email" placeholder="Username">
+                                    <input class="form-control" type="email" name="email" placeholder="Email">
                                 </div>
                                 <div class="input-group mb-4"><span class="input-group-text">
                                       <svg class="icon">
@@ -85,7 +90,7 @@
                                         <button class="btn btn-primary px-4" type="submit">Login</button>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <button class="btn btn-link px-0" type="button">Forgot password?</button>
+                                        <a href="{{ route('user.forgotpassword') }}" class="btn btn-link px-0" type="button">Forgot password?</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +100,7 @@
                         <div class="card-body text-center">
                             <div>
                                 <h2>Sign up</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p>If you don't have an account yet, you can register by clicking the button below!</p>
                                 <a href="{{ route('user.create') }}" class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</a>
                             </div>
                         </div>

@@ -11,13 +11,25 @@
                         LIST USERS
                     </a>
                     @foreach($myUsers as $user)
-                        <a href="{{ route('user.show', $user->id) }}" class="list-group-item list-group-item-action">{{ $user->name }}</a>
+                        <a href="{{ route('user.show', $user->id) }}" class="list-group-item list-group-item-action">
+                            <b>Nome:</b> {{ $user->name }}<br/>
+                            <b>Tel:</b> {{ $user->phone }}<br/>
+                            <b>CPF:</b> {{ $user->cpf }}</p>
+                        </a>
                     @endforeach
                 </div>
             </div>
             <div class="col-lg-9">
-                map
+                <div id="map"></div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="{{ asset('js/mapUsers.js') }}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPlj6A5TSLaAUNc3Ud8v7xqtInckvI9Ug&callback=dataUsersMap&v=weekly"
+        defer
+    ></script>
+@endpush
